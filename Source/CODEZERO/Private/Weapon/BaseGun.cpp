@@ -14,6 +14,7 @@ ABaseGun::ABaseGun()
 	, FireAction(nullptr)
 	, Character(nullptr)
 	, ProjectileClass()
+	, bCanFire(true)
 	, FireTrigger(ETriggerEvent::None)
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -61,7 +62,7 @@ void ABaseGun::AttachWeapon(ABaseCharacter* OtherCharacter)
 
 		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
 		{
-			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::None, this, &ABaseGun::OnFire);
+			EnhancedInputComponent->BindAction(FireAction, FireTrigger, this, &ABaseGun::OnFire);
 		}
 	}
 }

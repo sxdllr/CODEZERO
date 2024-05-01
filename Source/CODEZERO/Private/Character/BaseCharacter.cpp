@@ -60,7 +60,7 @@ ABaseCharacter::ABaseCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	Mesh1P->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	Mesh1P->SetupAttachment(Mesh3P);
 	Mesh1P->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
 	Mesh1P->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
 	Mesh1P->SetOnlyOwnerSee(true);

@@ -54,7 +54,7 @@ protected:
 
 	void ResetFireRate();
 
-	bool bCanFire = true;
+	bool bCanFire;
 	
 private:
 	ETriggerEvent FireTrigger;

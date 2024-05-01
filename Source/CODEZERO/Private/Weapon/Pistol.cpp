@@ -7,7 +7,7 @@
 
 APistol::APistol()
 {
-	SetStats(ETriggerEvent::Started);
+	SetStats(ETriggerEvent::Triggered);
 }
 
 void APistol::OnFire()
