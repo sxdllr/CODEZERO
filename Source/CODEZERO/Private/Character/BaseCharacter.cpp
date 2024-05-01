@@ -1,5 +1,6 @@
 
 #include "Character/BaseCharacter.h"
+#include "Inventory/ComponentPicker.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -40,8 +41,8 @@ ABaseCharacter::ABaseCharacter()
 
 	Mesh3P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh3P"));
 	Mesh3P->SetupAttachment(RootComponent);
-	Mesh3P->SetRelativeLocation(FVector(20.f, 14.f, 6.f));
-	Mesh3P->SetRelativeRotation(FRotator(-8.f, 0.f, -90.f));
+	Mesh3P->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
+	Mesh3P->SetRelativeRotation(FRotator(0.f, 0.f, -90.f));
 	Mesh3P->SetOnlyOwnerSee(true);
 	Mesh3P->bCastDynamicShadow = true;
 	Mesh3P->CastShadow = true;
@@ -139,7 +140,6 @@ void ABaseCharacter::Look(const FInputActionValue& Value)
 
 void ABaseCharacter::PickUp()
 {
-	/*
 	TArray<AActor*> OverlappingActors;
 	GetOverlappingActors(OverlappingActors, AComponentPicker::StaticClass());
 
@@ -152,5 +152,4 @@ void ABaseCharacter::PickUp()
 			return;
 		}
 	}
-	*/
 }
