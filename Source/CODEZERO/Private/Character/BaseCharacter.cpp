@@ -21,6 +21,7 @@ ABaseCharacter::ABaseCharacter()
 	, MoveAction(nullptr)
 	, SprintAction(nullptr)
 	, PickAction(nullptr)
+	, Camera1P(nullptr)
 	, bHasGun(false)
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -41,7 +42,7 @@ ABaseCharacter::ABaseCharacter()
 
 	Mesh3P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh3P"));
 	Mesh3P->SetupAttachment(RootComponent);
-	Mesh3P->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
+	Mesh3P->SetRelativeLocation(FVector(0.f, 0.f, -90.f));
 	Mesh3P->SetRelativeRotation(FRotator(0.f, 0.f, -90.f));
 	Mesh3P->SetOnlyOwnerSee(true);
 	Mesh3P->bCastDynamicShadow = true;
@@ -50,7 +51,7 @@ ABaseCharacter::ABaseCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(Mesh3P);
 	CameraBoom->TargetArmLength = 200.f;
-	CameraBoom->SetWorldLocation(FVector(0.f, 0.f, 60.f));
+	CameraBoom->SetWorldLocation(FVector(0.f, 0.f, 150.f));
 	CameraBoom->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -61,8 +62,8 @@ ABaseCharacter::ABaseCharacter()
 
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
 	Mesh1P->SetupAttachment(Mesh3P);
-	Mesh1P->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
-	Mesh1P->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
+	Mesh1P->SetRelativeLocation(FVector(250.f, -20.f, 0.f));
+	Mesh1P->SetRelativeRotation(FRotator(0.f, 0.f, -90.f));
 	Mesh1P->SetOnlyOwnerSee(true);
 	Mesh1P->bCastDynamicShadow = true;
 	Mesh1P->CastShadow = true;
@@ -95,6 +96,9 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		//EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &AMainCharacter::StopSprint);
 
 		EnhancedInputComponent->BindAction(PickAction, ETriggerEvent::Triggered, this, &ABaseCharacter::PickUp);
+
+		EnhancedInputComponent->BindAction(Camera1P, ETriggerEvent::Triggered, this, &ABaseCharacter::Aim);
+		EnhancedInputComponent->BindAction(Camera1P, ETriggerEvent::None, this, &ABaseCharacter::StopAim);
 	}
 	else
 	{
@@ -145,11 +149,29 @@ void ABaseCharacter::PickUp()
 
 	for (AActor* Actor : OverlappingActors)
 	{
-		AComponentPicker* ComponentPicker = Cast<AComponentPicker>(Actor);
-		if (ComponentPicker)
+		if (AComponentPicker* ComponentPicker = Cast<AComponentPicker>(Actor))
 		{
 			ComponentPicker->PickUpGunRadius(this);
 			return;
 		}
 	}
 }
+
+void ABaseCharacter::Aim()
+{
+	CameraBoom->TargetArmLength -= ZoomSpeed * GetWorld()->GetDeltaSeconds();
+	if (CameraBoom->TargetArmLength <= MinZoomLength)
+	{
+		CameraBoom->TargetArmLength = MinZoomLength;
+	}
+}
+
+void ABaseCharacter::StopAim()
+{
+	CameraBoom->TargetArmLength += ZoomSpeed * GetWorld()->GetDeltaSeconds();
+	if (CameraBoom->TargetArmLength >= MaxZoomLength)
+	{
+		CameraBoom->TargetArmLength = MaxZoomLength;
+	}
+}
+

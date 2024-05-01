@@ -44,6 +44,9 @@ class CODEZERO_API ABaseCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* PickAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* Camera1P;
+
 public:
 	ABaseCharacter();
 
@@ -72,4 +75,10 @@ private:
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
 	void PickUp();
+	void Aim();
+	void StopAim();
+
+	const float ZoomSpeed = 1000.f;
+	const float MinZoomLength = 0.f;
+	const float MaxZoomLength = 200.f;
 };
