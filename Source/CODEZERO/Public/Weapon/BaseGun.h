@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InputTriggers.h"
 #include "BaseGun.generated.h"
 
 class ABaseCharacter;
@@ -35,7 +36,7 @@ public:
 
 	void AttachWeapon(ABaseCharacter* OtherCharacter);
 
-	//void SetStats(ETriggerEvent OtherTrigger);
+	void SetStats(ETriggerEvent OtherTrigger);
 
 	USkeletalMeshComponent* GetGunMesh() const { return GunMesh; }
 
@@ -56,5 +57,5 @@ protected:
 	bool bCanFire = true;
 	
 private:
-	//ETriggerEvent FireTrigger;
+	ETriggerEvent FireTrigger;
 };

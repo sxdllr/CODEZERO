@@ -14,7 +14,7 @@ ABaseGun::ABaseGun()
 	, FireAction(nullptr)
 	, Character(nullptr)
 	, ProjectileClass()
-	//, FireTrigger(ETriggerEvent::None)
+	, FireTrigger(ETriggerEvent::None)
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -66,12 +66,10 @@ void ABaseGun::AttachWeapon(ABaseCharacter* OtherCharacter)
 	}
 }
 
-/*
 void ABaseGun::SetStats(ETriggerEvent OtherTrigger)
 {
 	FireTrigger = OtherTrigger;
 }
-*/
 
 void ABaseGun::ResetFireRate()
 {
