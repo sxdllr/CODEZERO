@@ -12,5 +12,7 @@ UCLASS()
 class CODEZERO_API ABaseGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	ABaseGameMode();
 };
