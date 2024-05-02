@@ -19,12 +19,17 @@ public:
 	UPlayerAnimInstance();
 
 protected:
-	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	void UpdateAnimationProperties(float DeltaSeconds);
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generic")
-	float Speed;
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 private:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character", meta=(AllowPrivateAccess = true))
 	ABaseCharacter* Character;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta=(AllowPrivateAccess = true))
+	float Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta=(AllowPrivateAccess = true))
+	float MovementOffsetYaw;
 };
