@@ -51,7 +51,7 @@ ABaseCharacter::ABaseCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(Mesh3P);
 	CameraBoom->TargetArmLength = 200.f;
-	CameraBoom->SetWorldLocation(FVector(0.f, 0.f, 150.f));
+	CameraBoom->SetWorldLocation(FVector(0.f, 30.f, 150.f));
 	CameraBoom->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -159,10 +159,13 @@ void ABaseCharacter::PickUp()
 
 void ABaseCharacter::Aim()
 {
-	CameraBoom->TargetArmLength -= ZoomSpeed * GetWorld()->GetDeltaSeconds();
-	if (CameraBoom->TargetArmLength <= MinZoomLength)
+	if(bHasGun)
 	{
-		CameraBoom->TargetArmLength = MinZoomLength;
+		CameraBoom->TargetArmLength -= ZoomSpeed * GetWorld()->GetDeltaSeconds();
+		if (CameraBoom->TargetArmLength <= MinZoomLength)
+		{
+			CameraBoom->TargetArmLength = MinZoomLength;
+		}
 	}
 }
 
@@ -174,4 +177,3 @@ void ABaseCharacter::StopAim()
 		CameraBoom->TargetArmLength = MaxZoomLength;
 	}
 }
-
