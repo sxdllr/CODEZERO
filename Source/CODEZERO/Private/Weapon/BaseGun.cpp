@@ -48,7 +48,7 @@ void ABaseGun::AttachWeapon(ABaseCharacter* OtherCharacter)
 	}
 
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
-	AttachToComponent(Character->GetMesh1P(), AttachmentRules);
+	AttachToComponent(Character->GetMesh3P(), AttachmentRules);
 
 	SetOwner(Character);
 	Character->SetHasGun(true);

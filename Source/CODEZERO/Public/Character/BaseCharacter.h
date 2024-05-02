@@ -63,6 +63,7 @@ public:
 	void SetHasGun(bool bHasNewGun) { bHasGun = bHasNewGun; } 
 
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
+	USkeletalMeshComponent* GetMesh3P() const { return Mesh3P; }
 
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -78,7 +79,7 @@ private:
 	void Aim();
 	void StopAim();
 
-	const float ZoomSpeed = 1000.f;
+	const float ZoomSpeed = 1500.f;
 	const float MinZoomLength = 0.f;
 	const float MaxZoomLength = 200.f;
 };
