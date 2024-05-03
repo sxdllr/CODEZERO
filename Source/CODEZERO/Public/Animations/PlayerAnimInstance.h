@@ -17,11 +17,10 @@ class CODEZERO_API UPlayerAnimInstance : public UAnimInstance
 
 public:
 	UPlayerAnimInstance();
-
-protected:
-	void UpdateAnimationProperties(float DeltaSeconds);
 	
-	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	virtual void NativeInitializeAnimation() override;
+	
+	virtual void NativeUpdateAnimation(float DeltaTimeX) override;
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character", meta=(AllowPrivateAccess = true))
@@ -29,7 +28,4 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta=(AllowPrivateAccess = true))
 	float Speed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta=(AllowPrivateAccess = true))
-	float MovementOffsetYaw;
 };
