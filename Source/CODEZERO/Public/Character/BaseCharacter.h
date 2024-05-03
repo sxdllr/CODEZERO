@@ -75,7 +75,12 @@ protected:
 private:	
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
+
+	void StartSprint();
+	void StopSprint();
+	
 	void PickUp();
+	
 	void Aim();
 	void StopAim();
 

@@ -21,7 +21,8 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTimeX)
 
 	if(!Character) { return; }
 
-	FVector Velocity{ Character->GetVelocity().Size() };
+	FVector Velocity{ Character->GetVelocity() };
 	Velocity.Z = 0.f;
 	Speed = Velocity.Size();
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Speed: %f"), Speed));
 }

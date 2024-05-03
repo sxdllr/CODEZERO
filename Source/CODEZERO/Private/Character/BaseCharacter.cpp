@@ -92,8 +92,8 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Move);
 
-		//EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AMainCharacter::StartSprint);
-		//EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &AMainCharacter::StopSprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ABaseCharacter::StartSprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &ABaseCharacter::StopSprint);
 
 		EnhancedInputComponent->BindAction(PickAction, ETriggerEvent::Triggered, this, &ABaseCharacter::PickUp);
 
@@ -109,8 +109,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ABaseCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
+	Super::Tick(DeltaTime);	
 }
 
 void ABaseCharacter::Move(const FInputActionValue& Value)
@@ -129,6 +128,16 @@ void ABaseCharacter::Move(const FInputActionValue& Value)
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
 	}
+}
+
+void ABaseCharacter::StartSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600.f;
+}
+
+void ABaseCharacter::StopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 }
 
 void ABaseCharacter::Look(const FInputActionValue& Value)
