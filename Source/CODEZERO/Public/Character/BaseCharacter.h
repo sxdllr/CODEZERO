@@ -66,7 +66,7 @@ public:
 	USkeletalMeshComponent* GetMesh3P() const { return Mesh3P; }
 
 protected:
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	virtual void BeginPlay() override;
 
@@ -86,5 +86,5 @@ private:
 
 	const float ZoomSpeed = 1500.f;
 	const float MinZoomLength = 0.f;
-	const float MaxZoomLength = 200.f;
+	const float MaxZoomLength = 250.f;
 };

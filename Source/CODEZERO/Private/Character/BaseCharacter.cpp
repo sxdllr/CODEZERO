@@ -50,7 +50,7 @@ ABaseCharacter::ABaseCharacter()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(Mesh3P);
-	CameraBoom->TargetArmLength = 200.f;
+	CameraBoom->TargetArmLength = MaxZoomLength;
 	CameraBoom->SetWorldLocation(FVector(0.f, 30.f, 150.f));
 	CameraBoom->bUsePawnControlRotation = true;
 

@@ -17,7 +17,7 @@ ABaseGun::ABaseGun()
 	, bCanFire(true)
 	, FireTrigger(ETriggerEvent::None)
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	GunMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	RootComponent = GunMesh;
