@@ -32,11 +32,6 @@ void AComponentPicker::BeginOverlap(UPrimitiveComponent* OverlappedComp, AActor*
     {
         OnPickUp.Broadcast(Character);
         bIsOverlap = true;
-        GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::White, "BeginOverlap Succeed");
-    }
-    else
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "BeginOverlap Failed");
     }
     // add outline when entering the radius of weapon raising
 }
@@ -59,7 +54,6 @@ ABaseGun* AComponentPicker::FindGunToPickUp()
             return Gun;
         }
     }
-    
     return nullptr;
 }
 
@@ -72,6 +66,7 @@ void AComponentPicker::PickUpGunRadius(ABaseCharacter* Character)
         if (ABaseGun* FoundGun = FindGunToPickUp())
         {
             FoundGun->AttachWeapon(Character); // later send to Inventory
+            Destroy();
         }
     }
 }

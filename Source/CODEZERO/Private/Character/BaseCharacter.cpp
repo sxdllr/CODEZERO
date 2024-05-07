@@ -26,7 +26,7 @@ ABaseCharacter::ABaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	GetCapsuleComponent()->InitCapsuleSize(42.f, 85.0f);
+	GetCapsuleComponent()->InitCapsuleSize(42.f, 90.0f);
 		
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
