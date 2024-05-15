@@ -49,13 +49,16 @@ struct FItemNumericData
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere)
-	float InventorySquare;
+	float ItemSquare;
 
 	UPROPERTY(EditAnywhere)
 	int16 MaxStackSize;
 	
 	UPROPERTY(EditAnywhere)
 	bool bIsStackable;
+
+	UPROPERTY(EditAnywhere)
+	bool bCanDrop;
 };
 
 USTRUCT()
