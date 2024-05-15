@@ -8,6 +8,7 @@
 
 AComponentPicker::AComponentPicker()
     : PickUpCollision(nullptr)
+    , FoundGun(nullptr)
     , bIsOverlap(false)
     , PickUpRadius(64.f)
 {
@@ -24,6 +25,8 @@ AComponentPicker::AComponentPicker()
 void AComponentPicker::BeginPlay()
 {
     Super::BeginPlay();
+
+    FoundGun = FindGunToPickUp();
 }
 
 void AComponentPicker::BeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -32,6 +35,8 @@ void AComponentPicker::BeginOverlap(UPrimitiveComponent* OverlappedComp, AActor*
     {
         OnPickUp.Broadcast(Character);
         bIsOverlap = true;
+
+        FoundGun->SetOutline();
     }
     // add outline when entering the radius of weapon raising
 }
@@ -39,6 +44,7 @@ void AComponentPicker::BeginOverlap(UPrimitiveComponent* OverlappedComp, AActor*
 void AComponentPicker::EndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
     bIsOverlap = false;
+    FoundGun->ResetOutline();
     // break outline when leaving the radius of weapon raising
 }
 
@@ -62,8 +68,9 @@ void AComponentPicker::PickUpGunRadius(ABaseCharacter* Character)
     if (bIsOverlap)
     {
         OnPickUp.Broadcast(Character);
-        
-        if (ABaseGun* FoundGun = FindGunToPickUp())
+
+        //FoundGun = FindGunToPickUp();
+        if (FoundGun)
         {
             FoundGun->AttachWeapon(Character); // later send to Inventory
             Destroy();

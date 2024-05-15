@@ -42,6 +42,9 @@ protected:
 private:  
 	ABaseGun* FindGunToPickUp();
 
+	UPROPERTY()
+	ABaseGun* FoundGun;
+
 	bool bIsOverlap;
 
 	float PickUpRadius;

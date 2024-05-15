@@ -72,6 +72,17 @@ void ABaseGun::SetStats(ETriggerEvent OtherTrigger)
 	FireTrigger = OtherTrigger;
 }
 
+void ABaseGun::SetOutline() const
+{
+	GunMesh->SetRenderCustomDepth(true);
+	GunMesh->SetCustomDepthStencilValue(255);
+}
+
+void ABaseGun::ResetOutline() const
+{
+	GunMesh->SetRenderCustomDepth(false);
+}
+
 void ABaseGun::ResetFireRate()
 {
 	bCanFire = true;

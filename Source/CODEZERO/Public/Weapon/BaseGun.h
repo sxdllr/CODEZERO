@@ -40,6 +40,9 @@ public:
 
 	USkeletalMeshComponent* GetGunMesh() const { return GunMesh; }
 
+	void SetOutline() const;
+	void ResetOutline() const;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
