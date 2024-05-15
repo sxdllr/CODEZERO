@@ -1,5 +1,5 @@
 
-#include "Inventory/ItemBase.h"
+#include "Inventory/Item/ItemBase.h"
 #include "Character/BaseCharacter.h"
 
 UItemBase::UItemBase()
