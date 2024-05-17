@@ -13,7 +13,7 @@ class CODEZERO_API UItemBase : public UObject
 {
 	GENERATED_BODY()
 
-	//UPROPERTY()
+	//UPROPERTY(meta = (UIMin = 1, UIMax = 128, AllowPrivateAccess = true))
 	//UInventoryComponent* OwingInventory;
 
 	UPROPERTY(VisibleAnywhere, Category = "Item Data", meta = (UIMin = 1, UIMax = 128, AllowPrivateAccess = true))
