@@ -12,6 +12,25 @@ class UInputAction;
 class AComponentPicker;
 struct FInputActionValue;
 
+USTRUCT()
+struct FInteractionData
+{
+	GENERATED_USTRUCT_BODY()
+
+	FInteractionData()
+		: CurrentInteractable(nullptr)
+		, LastInteractionCheckTime(0.f)
+	{
+
+	};
+
+	UPROPERTY()
+	AActor* CurrentInteractable;
+
+	UPROPERTY()
+	float LastInteractionCheckTime;
+};
+
 UCLASS()
 class CODEZERO_API ABaseCharacter : public ACharacter
 {
@@ -71,6 +90,14 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	/*
+	TScriptInterface<IInteractionInterface> TargetInteractable;
+	float InteractionCheckFrequency;
+	float InteractionCheckDistance;
+	FTimerHandle TimerHandle_Interaction;
+	FInteractionData InteractionData;
+	 */
 
 private:	
 	void Look(const FInputActionValue& Value);

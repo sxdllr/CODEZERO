@@ -160,7 +160,7 @@ void ABaseCharacter::PickUp()
 	{
 		if (AComponentPicker* ComponentPicker = Cast<AComponentPicker>(Actor))
 		{
-			ComponentPicker->PickUpGunRadius(this);
+			ComponentPicker->PickUpItemRadius(this);
 			return;
 		}
 	}
