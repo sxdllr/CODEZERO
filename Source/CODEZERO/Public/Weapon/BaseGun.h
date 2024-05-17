@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "InputTriggers.h"
+#include "Interfaces/InteractionInterface.h"
 #include "BaseGun.generated.h"
 
 class ABaseCharacter;
@@ -15,7 +16,7 @@ class UInputMappingContext;
 class UInputAction;
 
 UCLASS()
-class CODEZERO_API ABaseGun : public AActor
+class CODEZERO_API ABaseGun : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
 
@@ -40,14 +41,17 @@ public:
 
 	USkeletalMeshComponent* GetGunMesh() const { return GunMesh; }
 
-	void SetOutline() const;
-	void ResetOutline() const;
+	void SetOutline();
+	void ResetOutline();
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void OnFire() {};
+
+	virtual void OnEnterOverlap() override;
+	virtual void OnInteract() override;
 
 	UPROPERTY()
 	ABaseCharacter* Character;
@@ -60,5 +64,7 @@ protected:
 	bool bCanFire;
 	
 private:
+	bool bIsOutlineEnabled;
+	
 	ETriggerEvent FireTrigger;
 };

@@ -15,6 +15,7 @@ ABaseGun::ABaseGun()
 	, Character(nullptr)
 	, ProjectileClass()
 	, bCanFire(true)
+	, bIsOutlineEnabled(false)
 	, FireTrigger(ETriggerEvent::None)
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,7 +24,7 @@ ABaseGun::ABaseGun()
 	RootComponent = GunMesh;
 
 	GunCollision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
-	GunCollision->SetSphereRadius(10.f);
+	GunCollision->SetSphereRadius(20.f);
 	GunCollision->SetupAttachment(GunMesh);
 }
 
@@ -72,15 +73,33 @@ void ABaseGun::SetStats(ETriggerEvent OtherTrigger)
 	FireTrigger = OtherTrigger;
 }
 
-void ABaseGun::SetOutline() const
+void ABaseGun::SetOutline()
 {
-	GunMesh->SetRenderCustomDepth(true);
-	GunMesh->SetCustomDepthStencilValue(255);
+	if(GunMesh)
+	{
+		GunMesh->SetRenderCustomDepth(true);
+		GunMesh->SetCustomDepthStencilValue(255);
+		bIsOutlineEnabled = true;
+	}
 }
 
-void ABaseGun::ResetOutline() const
+void ABaseGun::ResetOutline()
 {
-	GunMesh->SetRenderCustomDepth(false);
+	if(GunMesh && bIsOutlineEnabled)
+	{
+		GunMesh->SetRenderCustomDepth(false);
+		bIsOutlineEnabled = false;
+	}
+}
+
+void ABaseGun::OnEnterOverlap()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::White, "EnterOverlap");
+}
+
+void ABaseGun::OnInteract()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::White, "OnInteract");
 }
 
 void ABaseGun::ResetFireRate()

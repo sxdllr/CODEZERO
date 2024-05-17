@@ -3,11 +3,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Character/BaseCharacter.h"
 #include "ComponentPicker.generated.h"
 
 class ABaseGun;
-class ABaseCharacter;
 class USphereComponent;
+class IInteractionInterface;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, ABaseCharacter*, PickUpCharacter);
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -22,7 +23,7 @@ public:
 	AComponentPicker();
 
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
-	void PickUpGunRadius(ABaseCharacter* Character);
+	void PickUpItemRadius(ABaseCharacter* Character);
 
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnPickUp OnPickUp;
@@ -33,17 +34,31 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaSeconds) override;
+
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void EndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	void InteractionCheck(const ACharacter* OtherActor);
+
+	void BeingOverlapped(AActor* NewInteractable);
+	void FoundInteractable(AActor* NewInteractable);
+
+	TScriptInterface<IInteractionInterface> TargetInteractable;
+
+	FInteractionData InteractionData;
+
 private:  
-	ABaseGun* FindGunToPickUp();
+	ABaseGun* FindItemToPickUp() const;
 
 	UPROPERTY()
 	ABaseGun* FoundGun;
+
+	UPROPERTY()
+	ABaseCharacter* OverlappedCharacter;
 
 	bool bIsOverlap;
 
